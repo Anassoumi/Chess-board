@@ -1,0 +1,28 @@
+import cv2
+import numpy as np
+
+BigSquare = int(input('please enter the size of the square ? : '))
+numOfSquare = int(input('please enter the number of squares : '))
+x = int(BigSquare / numOfSquare)
+
+blackSquare = (0, 0, 0)
+redSquare = (0, 0, 255)
+NowSquare = blackSquare
+
+while True:
+    image = np.zeros([BigSquare, BigSquare, 3], dtype=np.uint8)
+    for row in range(0, numOfSquare):
+        for columns in range(0, numOfSquare):
+            image[x * row:x * (row + 1), x * columns:x * (columns + 1)] = NowSquare
+            if NowSquare == blackSquare:
+                NowSquare = redSquare
+            else:
+                NowSquare = blackSquare
+        if NowSquare == blackSquare:
+            NowSquare = redSquare
+        else:
+            NowSquare = blackSquare
+
+    cv2.imshow('image', image)
+    if cv2.waitKey(1) & 0xff == ord('q'):
+        break
